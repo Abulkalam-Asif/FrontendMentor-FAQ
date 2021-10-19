@@ -1,0 +1,86 @@
+@import 'variables';
+@import 'cssReset';
+
+@mixin flexCenter($direction) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: $direction;
+}
+
+body {
+	background: linear-gradient(to bottom, $gradientClr1, $gradientClr2);
+	@include flexCenter(column);
+	font-family: $ff;
+}
+
+div.card {
+	width: 90%;
+	max-width: 900px;
+	min-height: 450px;
+	background: #fff;
+	border-radius: 20px;
+	display: flex;
+	justify-content: flex-end;
+	div#illustrationDiv {
+		width: 50%;
+		background: url(../images/illustration-woman-online-desktop.svg) no-repeat  calc(100% - 3rem) 63%, url(../images/bg-pattern-desktop.svg) no-repeat 110% 63%;
+		#illustrationBox {
+			transform: translate(-40%, 120%);
+		}
+	}
+	main {
+		width: 50%;
+		padding: 2rem 4rem 2rem 0;
+		h1 {
+			color: $textSecondaryClr;
+			margin-bottom: .5rem;
+		}
+		.questionItem::after {
+			content: "";
+			background: $dividerClr;
+			width: 100%;
+			height: 1px;
+			display: flex;
+			flex-direction: column;
+		}
+		.questionDiv {
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			padding: 10px 0;
+			color: $textPrimaryClr;
+		}
+		.questionDiv:hover {
+			color: $accentClr;
+		}
+		.question {
+			font-size: .9rem;
+			cursor: pointer;
+		}
+		.answer {
+			color: $answerClr;
+			font-size: .8rem;
+		}
+	}
+}
+
+.answerHidden {
+  opacity: 0;
+	height: 0;
+  transition: opacity .3s linear, height 3s linear;
+}
+.answerVisible {
+	opacity: 1;
+	height: auto;
+	transition: opacity .3s linear, height 3s linear;
+}
+
+.arrowUp {
+	transform: rotateZ(180deg);
+	transition: transform .3s;
+}
+.arrowDown {
+	transform: rotateZ(0deg);
+	transition: transform .3s;
+}
