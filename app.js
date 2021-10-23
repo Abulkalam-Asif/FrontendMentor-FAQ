@@ -1,29 +1,37 @@
-const questionDivs = Array.from(document.querySelectorAll('.questionDiv'));
+let questionBtns = Array.from(document.querySelectorAll('.questionBtn'));
+let answerDivs = document.querySelectorAll('.answerDiv');
+let answers = document.querySelectorAll('.answer');
+let arrowIcons = document.querySelectorAll('.arrowIcon');
 
-const answers = Array.from(document.querySelectorAll('.answer'));
+questionBtns.forEach((questionBtn, index) => {
+	questionBtn.addEventListener('click', () => {
+		let clickedButtonIndex = questionBtns.indexOf(questionBtn);
+		answerDivs.forEach((answerDiv, index) => {
+			if(answerDiv.classList.contains('opened')) {
+				answerDiv.classList.remove('opened');
+				answerDiv.classList.add('closed');
+				answerDivs[index].style.height = '0';
+				arrowIcons[index].style.transform = 'rotateZ(0deg)';
+				questionBtns[index].style.fontWeight = '400';
+			} else {
+				arrowIcons[clickedButtonIndex].style.transform = 'rotateZ(180deg)';
+				questionBtns[clickedButtonIndex].style.fontWeight = '700';
+			}
+		});
 
-const arrowIcons = Array.from(document.querySelectorAll('.arrow_icon'));
-
-console.log(questionDivs, answers);
-
-questionDivs.forEach(questionDiv => {
-	questionDiv.addEventListener('click', () => {
-		let correspondingAnswer = answers[questionDivs.indexOf(questionDiv)];
-		let correspondingIcon = arrowIcons[questionDivs.indexOf(questionDiv)];
-
-		if(correspondingAnswer.classList.contains('answerHidden')) {
-			correspondingAnswer.classList.remove("answerHidden");
-			correspondingAnswer.classList.add("answerVisible");
-
-			correspondingIcon.classList.remove('arrowDown');
-			correspondingIcon.classList.add('arrowUp');
+		if(answerDivs[index].classList.contains('opened')) {
+			answerDivs[index].classList.add('closed');
+			answerDivs[index].classList.remove('opened');
+			answerDivs[index].style.height = '0';
+			questionBtns[index].style.fontWeight = '400';
+			arrowIcons[index].style.transform = 'rotateZ(0deg)';
 		} else {
-			correspondingAnswer.classList.remove("answerVisible");
-			correspondingAnswer.classList.add("answerHidden");
-
-			correspondingIcon.classList.remove('arrowUp');
-			correspondingIcon.classList.add('arrowDown');
+			answerDivs[index].classList.add('opened');
+			answerDivs[index].classList.remove('closed');
+			let height = `${answers[index].offsetHeight}px`;
+			questionBtns[index].style.fontWeight = '700';
+			answerDivs[index].style.height = height;
+			arrowIcons[index].style.transform = 'rotateZ(180deg)';
 		}
-		
 	});
 });
